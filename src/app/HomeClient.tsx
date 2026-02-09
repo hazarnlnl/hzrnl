@@ -3,6 +3,12 @@
 import Image from "next/image";
 import { AnimatePresence, motion } from "framer-motion";
 import { useEffect, useRef, useState } from "react";
+import {
+  trackBookCallClick,
+  trackMenuPillClick,
+  trackTelegramClick,
+  trackTwitterClick,
+} from "@/lib/analytics";
 
 const TOP_PILL_SCROLL_THRESHOLD = 80;
 const BOTTOM_NAV_HIDE_THRESHOLD = 150;
@@ -21,8 +27,19 @@ export default function HomeClient({ projects }: HomeClientProps) {
   const [showTopPill, setShowTopPill] = useState(true);
   const [showBottomNav, setShowBottomNav] = useState(false);
   const [scrollPastBottomNavThreshold, setScrollPastBottomNavThreshold] = useState(false);
+  const [isTouchLike, setIsTouchLike] = useState(false);
+  const [activeTopTooltip, setActiveTopTooltip] = useState<null | "product" | "branding" | "web">(null);
+  const [activeBottomTooltip, setActiveBottomTooltip] = useState<null | "product" | "branding" | "web">(null);
   const menuRef = useRef<HTMLDivElement>(null);
   const bottomNavTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
+
+  useEffect(() => {
+    const mq = window.matchMedia("(hover: none), (pointer: coarse)");
+    const update = () => setIsTouchLike(mq.matches);
+    update();
+    mq.addEventListener("change", update);
+    return () => mq.removeEventListener("change", update);
+  }, []);
 
   useEffect(() => {
     if (showTopPill || !scrollPastBottomNavThreshold) {
@@ -52,6 +69,10 @@ export default function HomeClient({ projects }: HomeClientProps) {
       document.addEventListener("click", handleClickOutside);
       return () => document.removeEventListener("click", handleClickOutside);
     }
+  }, [menuOpen]);
+
+  useEffect(() => {
+    if (!menuOpen) setActiveTopTooltip(null);
   }, [menuOpen]);
 
   useEffect(() => {
@@ -99,6 +120,7 @@ export default function HomeClient({ projects }: HomeClientProps) {
             tabIndex={0}
             onClick={(e) => {
               e.stopPropagation();
+              trackMenuPillClick();
               setMenuOpen((open) => !open);
             }}
             onKeyDown={(e) => {
@@ -161,6 +183,10 @@ export default function HomeClient({ projects }: HomeClientProps) {
                           rest: {},
                           hover: {},
                         }}
+                        onClick={() => {
+                          if (!isTouchLike) return;
+                          setActiveTopTooltip((curr) => (curr === "product" ? null : "product"));
+                        }}
                       >
                         <div className="flex h-[74px] w-[74px] items-center justify-center rounded-2xl bg-[#F5F5F5]">
                           <Image
@@ -173,10 +199,12 @@ export default function HomeClient({ projects }: HomeClientProps) {
                         </div>
                         <motion.div
                           className="pointer-events-none absolute bottom-full left-1/2 z-10 mb-3 -translate-x-1/2 rounded-[8px] bg-[#212121] px-2 py-1 text-[16px] font-semibold leading-[19px] tracking-[-0.04em] text-[#EDEDED] shadow-sm"
+                          initial={false}
                           variants={{
                             rest: { opacity: 0, y: 4 },
                             hover: { opacity: 1, y: 0 },
                           }}
+                          animate={isTouchLike ? (activeTopTooltip === "product" ? "hover" : "rest") : undefined}
                           transition={{
                             type: "tween",
                             duration: 0.2,
@@ -196,6 +224,10 @@ export default function HomeClient({ projects }: HomeClientProps) {
                           rest: {},
                           hover: {},
                         }}
+                        onClick={() => {
+                          if (!isTouchLike) return;
+                          setActiveTopTooltip((curr) => (curr === "branding" ? null : "branding"));
+                        }}
                       >
                         <div className="flex h-[74px] w-[74px] items-center justify-center rounded-2xl bg-[#F5F5F5]">
                           <Image
@@ -208,10 +240,12 @@ export default function HomeClient({ projects }: HomeClientProps) {
                         </div>
                         <motion.div
                           className="pointer-events-none absolute bottom-full left-1/2 z-10 mb-3 -translate-x-1/2 rounded-[8px] bg-[#212121] px-2 py-1 text-[16px] font-semibold leading-[19px] tracking-[-0.04em] text-[#EDEDED] shadow-sm"
+                          initial={false}
                           variants={{
                             rest: { opacity: 0, y: 4 },
                             hover: { opacity: 1, y: 0 },
                           }}
+                          animate={isTouchLike ? (activeTopTooltip === "branding" ? "hover" : "rest") : undefined}
                           transition={{
                             type: "tween",
                             duration: 0.2,
@@ -231,6 +265,10 @@ export default function HomeClient({ projects }: HomeClientProps) {
                           rest: {},
                           hover: {},
                         }}
+                        onClick={() => {
+                          if (!isTouchLike) return;
+                          setActiveTopTooltip((curr) => (curr === "web" ? null : "web"));
+                        }}
                       >
                         <div className="flex h-[74px] w-[74px] items-center justify-center rounded-2xl bg-[#F5F5F5]">
                           <Image
@@ -243,10 +281,12 @@ export default function HomeClient({ projects }: HomeClientProps) {
                         </div>
                         <motion.div
                           className="pointer-events-none absolute bottom-full left-1/2 z-10 mb-3 -translate-x-1/2 rounded-[8px] bg-[#212121] px-2 py-1 text-[16px] font-semibold leading-[19px] tracking-[-0.04em] text-[#EDEDED] shadow-sm"
+                          initial={false}
                           variants={{
                             rest: { opacity: 0, y: 4 },
                             hover: { opacity: 1, y: 0 },
                           }}
+                          animate={isTouchLike ? (activeTopTooltip === "web" ? "hover" : "rest") : undefined}
                           transition={{
                             type: "tween",
                             duration: 0.2,
@@ -269,6 +309,7 @@ export default function HomeClient({ projects }: HomeClientProps) {
                         href="https://cal.com/hazarnlnl/intro-with-hazar"
                         target="_blank"
                         rel="noopener noreferrer"
+                        onClick={() => trackBookCallClick("menu_popup")}
                         className="text-[12px] font-medium leading-[14px] tracking-[-0.02em] text-[#A8A8A8] transition-colors duration-200 ease-out hover:text-[#282829]"
                       >
                         Book Call
@@ -277,6 +318,7 @@ export default function HomeClient({ projects }: HomeClientProps) {
                         href="https://x.com/hazarnlnl"
                         target="_blank"
                         rel="noopener noreferrer"
+                        onClick={() => trackTwitterClick("menu_popup")}
                         className="text-[12px] font-medium leading-[14px] tracking-[-0.02em] text-[#A8A8A8] transition-colors duration-200 ease-out hover:text-[#282829]"
                       >
                         X/Twitter
@@ -291,6 +333,7 @@ export default function HomeClient({ projects }: HomeClientProps) {
                         href="https://t.me/hazarnlnl"
                         target="_blank"
                         rel="noopener noreferrer"
+                        onClick={() => trackTelegramClick("menu_popup")}
                         className="text-[12px] font-medium leading-[14px] tracking-[-0.02em] text-[#A8A8A8] transition-colors duration-200 ease-out hover:text-[#282829]"
                       >
                         Telegram
@@ -326,6 +369,7 @@ export default function HomeClient({ projects }: HomeClientProps) {
             href="https://cal.com/hazarnlnl/intro-with-hazar"
             target="_blank"
             rel="noopener noreferrer"
+            onClick={() => trackBookCallClick("header")}
             className="group flex h-[43px] w-[113.9px] flex-row items-center justify-center gap-[6.9px] rounded-full border border-[#2D2D2D] bg-[#12141B] px-3 py-3 transition-colors duration-150 hover:bg-[#242938]"
           >
             <Image
@@ -343,6 +387,7 @@ export default function HomeClient({ projects }: HomeClientProps) {
             href="https://t.me/hazarnlnl"
             target="_blank"
             rel="noopener noreferrer"
+            onClick={() => trackTelegramClick("header")}
             className="group flex h-[43px] w-[81.9px] flex-row items-center justify-center gap-[6.9px] rounded-full border border-[#DADADA] bg-white px-3 py-3 transition-colors duration-150 hover:bg-[#F5F5F5]"
           >
             <Image
@@ -456,6 +501,10 @@ export default function HomeClient({ projects }: HomeClientProps) {
                     rest: {},
                     hover: {},
                   }}
+                  onClick={() => {
+                    if (!isTouchLike) return;
+                    setActiveBottomTooltip((curr) => (curr === "product" ? null : "product"));
+                  }}
                 >
                   <div className="flex h-[74px] w-[74px] items-center justify-center rounded-2xl bg-[#F5F5F5]">
                     <Image
@@ -468,10 +517,12 @@ export default function HomeClient({ projects }: HomeClientProps) {
                   </div>
                   <motion.div
                     className="pointer-events-none absolute bottom-full left-1/2 z-10 mb-3 -translate-x-1/2 rounded-[8px] bg-[#212121] px-2 py-1 text-[16px] font-semibold leading-[19px] tracking-[-0.04em] text-[#EDEDED] shadow-sm"
+                    initial={false}
                     variants={{
                       rest: { opacity: 0, y: 4 },
                       hover: { opacity: 1, y: 0 },
                     }}
+                    animate={isTouchLike ? (activeBottomTooltip === "product" ? "hover" : "rest") : undefined}
                     transition={{
                       type: "tween",
                       duration: 0.2,
@@ -491,6 +542,10 @@ export default function HomeClient({ projects }: HomeClientProps) {
                     rest: {},
                     hover: {},
                   }}
+                  onClick={() => {
+                    if (!isTouchLike) return;
+                    setActiveBottomTooltip((curr) => (curr === "branding" ? null : "branding"));
+                  }}
                 >
                   <div className="flex h-[74px] w-[74px] items-center justify-center rounded-2xl bg-[#F5F5F5]">
                     <Image
@@ -503,10 +558,12 @@ export default function HomeClient({ projects }: HomeClientProps) {
                   </div>
                   <motion.div
                     className="pointer-events-none absolute bottom-full left-1/2 z-10 mb-3 -translate-x-1/2 rounded-[8px] bg-[#212121] px-2 py-1 text-[16px] font-semibold leading-[19px] tracking-[-0.04em] text-[#EDEDED] shadow-sm"
+                    initial={false}
                     variants={{
                       rest: { opacity: 0, y: 4 },
                       hover: { opacity: 1, y: 0 },
                     }}
+                    animate={isTouchLike ? (activeBottomTooltip === "branding" ? "hover" : "rest") : undefined}
                     transition={{
                       type: "tween",
                       duration: 0.2,
@@ -526,6 +583,10 @@ export default function HomeClient({ projects }: HomeClientProps) {
                     rest: {},
                     hover: {},
                   }}
+                  onClick={() => {
+                    if (!isTouchLike) return;
+                    setActiveBottomTooltip((curr) => (curr === "web" ? null : "web"));
+                  }}
                 >
                   <div className="flex h-[74px] w-[74px] items-center justify-center rounded-2xl bg-[#F5F5F5]">
                     <Image
@@ -538,10 +599,12 @@ export default function HomeClient({ projects }: HomeClientProps) {
                   </div>
                   <motion.div
                     className="pointer-events-none absolute bottom-full left-1/2 z-10 mb-3 -translate-x-1/2 rounded-[8px] bg-[#212121] px-2 py-1 text-[16px] font-semibold leading-[19px] tracking-[-0.04em] text-[#EDEDED] shadow-sm"
+                    initial={false}
                     variants={{
                       rest: { opacity: 0, y: 4 },
                       hover: { opacity: 1, y: 0 },
                     }}
+                    animate={isTouchLike ? (activeBottomTooltip === "web" ? "hover" : "rest") : undefined}
                     transition={{
                       type: "tween",
                       duration: 0.2,
@@ -564,6 +627,7 @@ export default function HomeClient({ projects }: HomeClientProps) {
                   href="https://cal.com/hazarnlnl/intro-with-hazar"
                   target="_blank"
                   rel="noopener noreferrer"
+                  onClick={() => trackBookCallClick("bottom_section")}
                   className="text-[12px] font-medium leading-[14px] tracking-[-0.02em] text-[#A8A8A8] transition-colors duration-200 ease-out hover:text-[#282829]"
                 >
                   Book Call
@@ -572,6 +636,7 @@ export default function HomeClient({ projects }: HomeClientProps) {
                   href="https://x.com/hazarnlnl"
                   target="_blank"
                   rel="noopener noreferrer"
+                  onClick={() => trackTwitterClick("bottom_section")}
                   className="text-[12px] font-medium leading-[14px] tracking-[-0.02em] text-[#A8A8A8] transition-colors duration-200 ease-out hover:text-[#282829]"
                 >
                   X/Twitter
@@ -586,6 +651,7 @@ export default function HomeClient({ projects }: HomeClientProps) {
                   href="https://t.me/hazarnlnl"
                   target="_blank"
                   rel="noopener noreferrer"
+                  onClick={() => trackTelegramClick("bottom_section")}
                   className="text-[12px] font-medium leading-[14px] tracking-[-0.02em] text-[#A8A8A8] transition-colors duration-200 ease-out hover:text-[#282829]"
                 >
                   Telegram
@@ -609,6 +675,7 @@ export default function HomeClient({ projects }: HomeClientProps) {
           href="https://cal.com/hazarnlnl/intro-with-hazar"
           target="_blank"
           rel="noopener noreferrer"
+          onClick={() => trackBookCallClick("bottom_nav")}
           className="group flex h-[43px] w-[113.9px] flex-row items-center justify-center gap-[6.9px] rounded-full border border-[#2D2D2D] bg-[#12141B] px-3 py-3 transition-colors duration-150 hover:bg-[#242938]"
         >
           <Image
@@ -626,6 +693,7 @@ export default function HomeClient({ projects }: HomeClientProps) {
           href="https://t.me/hazarnlnl"
           target="_blank"
           rel="noopener noreferrer"
+          onClick={() => trackTelegramClick("bottom_nav")}
           className="group flex h-[43px] w-[81.9px] flex-row items-center justify-center gap-[6.9px] rounded-full border border-[#DADADA] bg-white px-3 py-3 transition-colors duration-150 hover:bg-[#F5F5F5]"
         >
           <Image
