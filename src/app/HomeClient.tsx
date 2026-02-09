@@ -74,6 +74,8 @@ export default function HomeClient({ projects }: HomeClientProps) {
         setScrollPastBottomNavThreshold(true);
       }
     };
+    // Check initial scroll position on mount (client-side only)
+    handleScroll();
     window.addEventListener("scroll", handleScroll, { passive: true });
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
@@ -127,66 +129,173 @@ export default function HomeClient({ projects }: HomeClientProps) {
             {menuOpen && (
               <motion.div
                 key="menu-popup"
-                initial={{ opacity: 0, y: -12, filter: "blur(8px)" }}
+                initial={{ opacity: 0, y: -16, filter: "blur(10px)" }}
                 animate={{ opacity: 1, y: 0, filter: "blur(0px)" }}
-                exit={{ opacity: 0, y: -8, filter: "blur(6px)" }}
+                exit={{ opacity: 0, y: -12, filter: "blur(8px)" }}
                 transition={{
-                  type: "tween",
-                  duration: 0.28,
+                  duration: 0.26,
                   ease: [0.25, 0.1, 0.25, 1],
                 }}
-                className="absolute left-1/2 top-full z-10 mt-2 -translate-x-1/2 rounded-[22px] border border-[#EBEBEB] bg-white px-5 py-4"
+                className="absolute left-1/2 top-full z-10 mt-2 w-auto max-w-[90vw] md:w-[653px] -translate-x-1/2 rounded-[36px] border border-[#EBEBEB] bg-white p-8"
                 onClick={(e) => e.stopPropagation()}
               >
-                <div className="flex flex-row gap-8">
-                  <div className="flex flex-col gap-1.5">
-                    <span className="text-[11px] font-semibold uppercase tracking-[0.08em] text-[#9B9B9B]">
-                      Services
-                    </span>
-                    <span className="text-[12px] leading-[14px] tracking-[-0.02em] text-[#A8A8A8]">
-                      Product
-                    </span>
-                    <span className="text-[12px] leading-[14px] tracking-[-0.02em] text-[#A8A8A8]">
-                      Branding
-                    </span>
-                    <span className="whitespace-nowrap text-[12px] leading-[14px] tracking-[-0.02em] text-[#A8A8A8]">
-                      Web Development
-                    </span>
+                <div className="flex w-full flex-col items-start gap-[10px] md:flex-row md:items-end md:justify-between">
+                  {/* Left: heading + services (same as bottom) */}
+                  <div className="flex w-full max-w-[336px] flex-col items-start gap-24 md:gap-20">
+                    <div className="flex flex-col items-start gap-4">
+                      <h2 className="text-[24px] font-medium leading-[1.2] tracking-[-0.04em] text-black">
+                        Have a project in mind?
+                      </h2>
+                      <p className="text-[16px] font-medium leading-[1.2] tracking-[-0.04em] text-[#C4C4C4]">
+                        Let&apos;s build something special together.
+                      </p>
+                    </div>
+
+                    <div className="flex flex-row items-center gap-8">
+                      {/* Product icon with tooltip */}
+                      <motion.div
+                        className="relative flex w-[74px] flex-col items-center"
+                        initial="rest"
+                        whileHover="hover"
+                        variants={{
+                          rest: {},
+                          hover: {},
+                        }}
+                      >
+                        <div className="flex h-[74px] w-[74px] items-center justify-center rounded-2xl bg-[#F5F5F5]">
+                          <Image
+                            src="/product.svg"
+                            alt="Product"
+                            width={52}
+                            height={52}
+                            className="h-[52px] w-[52px]"
+                          />
+                        </div>
+                        <motion.div
+                          className="pointer-events-none absolute bottom-full left-1/2 z-10 mb-3 -translate-x-1/2 rounded-[8px] bg-[#212121] px-2 py-1 text-[16px] font-semibold leading-[19px] tracking-[-0.04em] text-[#EDEDED] shadow-sm"
+                          variants={{
+                            rest: { opacity: 0, y: 4 },
+                            hover: { opacity: 1, y: 0 },
+                          }}
+                          transition={{
+                            type: "tween",
+                            duration: 0.2,
+                            ease: [0.25, 0.1, 0.25, 1],
+                          }}
+                        >
+                          Product
+                        </motion.div>
+                      </motion.div>
+
+                      {/* Branding icon with tooltip */}
+                      <motion.div
+                        className="relative flex w-[74px] flex-col items-center"
+                        initial="rest"
+                        whileHover="hover"
+                        variants={{
+                          rest: {},
+                          hover: {},
+                        }}
+                      >
+                        <div className="flex h-[74px] w-[74px] items-center justify-center rounded-2xl bg-[#F5F5F5]">
+                          <Image
+                            src="/brand.svg"
+                            alt="Branding"
+                            width={52}
+                            height={52}
+                            className="h-[52px] w-[52px]"
+                          />
+                        </div>
+                        <motion.div
+                          className="pointer-events-none absolute bottom-full left-1/2 z-10 mb-3 -translate-x-1/2 rounded-[8px] bg-[#212121] px-2 py-1 text-[16px] font-semibold leading-[19px] tracking-[-0.04em] text-[#EDEDED] shadow-sm"
+                          variants={{
+                            rest: { opacity: 0, y: 4 },
+                            hover: { opacity: 1, y: 0 },
+                          }}
+                          transition={{
+                            type: "tween",
+                            duration: 0.2,
+                            ease: [0.25, 0.1, 0.25, 1],
+                          }}
+                        >
+                          Branding
+                        </motion.div>
+                      </motion.div>
+
+                      {/* Web icon with tooltip */}
+                      <motion.div
+                        className="relative flex w-[74px] flex-col items-center"
+                        initial="rest"
+                        whileHover="hover"
+                        variants={{
+                          rest: {},
+                          hover: {},
+                        }}
+                      >
+                        <div className="flex h-[74px] w-[74px] items-center justify-center rounded-2xl bg-[#F5F5F5]">
+                          <Image
+                            src="/web.svg"
+                            alt="Web"
+                            width={52}
+                            height={52}
+                            className="h-[52px] w-[52px]"
+                          />
+                        </div>
+                        <motion.div
+                          className="pointer-events-none absolute bottom-full left-1/2 z-10 mb-3 -translate-x-1/2 rounded-[8px] bg-[#212121] px-2 py-1 text-[16px] font-semibold leading-[19px] tracking-[-0.04em] text-[#EDEDED] shadow-sm"
+                          variants={{
+                            rest: { opacity: 0, y: 4 },
+                            hover: { opacity: 1, y: 0 },
+                          }}
+                          transition={{
+                            type: "tween",
+                            duration: 0.2,
+                            ease: [0.25, 0.1, 0.25, 1],
+                          }}
+                        >
+                          <span className="whitespace-nowrap">Web + Development</span>
+                        </motion.div>
+                      </motion.div>
+                    </div>
                   </div>
-                  <div className="flex flex-col gap-1.5">
-                    <span className="text-[11px] font-semibold uppercase tracking-[0.08em] text-[#9B9B9B]">
-                      Contact
+
+                  {/* Right: contact list (same as bottom) */}
+                  <div className="mt-8 flex w-[93px] flex-col items-start gap-3 md:mt-0">
+                    <span className="text-[11px] font-semibold leading-[18px] tracking-[0.04em] text-[#BBBBBB]">
+                      CONTACT
                     </span>
-                    <a
-                      href="https://cal.com/hazarnlnl/intro-with-hazar"
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="text-[12px] font-medium leading-[14px] tracking-[-0.02em] text-[#A8A8A8] transition-colors duration-200 ease-out hover:text-[#282829]"
-                    >
-                      Book a Call
-                    </a>
-                    <a
-                      href="https://t.me/hazarnlnl"
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="text-[12px] font-medium leading-[14px] tracking-[-0.02em] text-[#A8A8A8] transition-colors duration-200 ease-out hover:text-[#282829]"
-                    >
-                      Telegram
-                    </a>
-                    <a
-                      href="https://x.com/hazarnlnl"
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="text-[12px] font-medium leading-[14px] tracking-[-0.02em] text-[#A8A8A8] transition-colors duration-200 ease-out hover:text-[#282829]"
-                    >
-                      X/Twitter
-                    </a>
-                    <a
-                      href="mailto:hi@hzrnl.com"
-                      className="text-[12px] font-medium leading-[14px] tracking-[-0.02em] text-[#A8A8A8] transition-colors duration-200 ease-out hover:text-[#282829]"
-                    >
-                      hi@hzrnl.com
-                    </a>
+                    <div className="flex flex-col items-start gap-3">
+                      <a
+                        href="https://cal.com/hazarnlnl/intro-with-hazar"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="text-[12px] font-medium leading-[14px] tracking-[-0.02em] text-[#A8A8A8] transition-colors duration-200 ease-out hover:text-[#282829]"
+                      >
+                        Book Call
+                      </a>
+                      <a
+                        href="https://x.com/hazarnlnl"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="text-[12px] font-medium leading-[14px] tracking-[-0.02em] text-[#A8A8A8] transition-colors duration-200 ease-out hover:text-[#282829]"
+                      >
+                        X/Twitter
+                      </a>
+                      <a
+                        href="mailto:hi@hzrnl.com"
+                        className="text-[12px] font-medium leading-[14px] tracking-[-0.02em] text-[#A8A8A8] transition-colors duration-200 ease-out hover:text-[#282829]"
+                      >
+                        hi@hzrnl.com
+                      </a>
+                      <a
+                        href="https://t.me/hazarnlnl"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="text-[12px] font-medium leading-[14px] tracking-[-0.02em] text-[#A8A8A8] transition-colors duration-200 ease-out hover:text-[#282829]"
+                      >
+                        Telegram
+                      </a>
+                    </div>
                   </div>
                 </div>
               </motion.div>
@@ -299,7 +408,7 @@ export default function HomeClient({ projects }: HomeClientProps) {
           />
         </motion.div>
 
-        {/* Project images from Supabase */}
+        {/* Project images */}
         <motion.div
           className="mt-48 flex w-full flex-col items-center gap-6"
           initial={{ opacity: 0, y: -16 }}
@@ -317,6 +426,174 @@ export default function HomeClient({ projects }: HomeClientProps) {
             />
           ))}
         </motion.div>
+
+        {/* Services + Contact block (Frame 221 style) */}
+        <motion.section
+          className="mt-28 mb-16 flex w-full justify-center px-4"
+          initial={{ opacity: 0, y: 16 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.5, ease: "easeOut", delay: 0.3 }}
+        >
+          <div className="flex w-auto max-w-[90vw] md:w-full md:max-w-[653px] flex-col items-start gap-[10px] rounded-[36px] border border-[#EBEBEB] bg-white p-8 md:flex-row md:items-end md:justify-between">
+            {/* Left: heading + services */}
+            <div className="flex w-full max-w-[336px] flex-col items-start gap-24 md:gap-20">
+              <div className="flex flex-col items-start gap-4">
+                <h2 className="text-[24px] font-medium leading-[1.2] tracking-[-0.04em] text-black">
+                  Have a project in mind?
+                </h2>
+                <p className="text-[16px] font-medium leading-[1.2] tracking-[-0.04em] text-[#C4C4C4]">
+                  Let&apos;s build something special together.
+                </p>
+              </div>
+
+                  <div className="flex flex-row items-center gap-8">
+                {/* Product icon with tooltip */}
+                <motion.div
+                  className="relative flex w-[74px] flex-col items-center"
+                  initial="rest"
+                  whileHover="hover"
+                  variants={{
+                    rest: {},
+                    hover: {},
+                  }}
+                >
+                  <div className="flex h-[74px] w-[74px] items-center justify-center rounded-2xl bg-[#F5F5F5]">
+                    <Image
+                      src="/product.svg"
+                      alt="Product"
+                      width={52}
+                      height={52}
+                      className="h-[52px] w-[52px]"
+                    />
+                  </div>
+                  <motion.div
+                    className="pointer-events-none absolute bottom-full left-1/2 z-10 mb-3 -translate-x-1/2 rounded-[8px] bg-[#212121] px-2 py-1 text-[16px] font-semibold leading-[19px] tracking-[-0.04em] text-[#EDEDED] shadow-sm"
+                    variants={{
+                      rest: { opacity: 0, y: 4 },
+                      hover: { opacity: 1, y: 0 },
+                    }}
+                    transition={{
+                      type: "tween",
+                      duration: 0.2,
+                      ease: [0.25, 0.1, 0.25, 1],
+                    }}
+                  >
+                    Product
+                  </motion.div>
+                </motion.div>
+
+                {/* Branding icon with tooltip */}
+                <motion.div
+                  className="relative flex w-[74px] flex-col items-center"
+                  initial="rest"
+                  whileHover="hover"
+                  variants={{
+                    rest: {},
+                    hover: {},
+                  }}
+                >
+                  <div className="flex h-[74px] w-[74px] items-center justify-center rounded-2xl bg-[#F5F5F5]">
+                    <Image
+                      src="/brand.svg"
+                      alt="Branding"
+                      width={52}
+                      height={52}
+                      className="h-[52px] w-[52px]"
+                    />
+                  </div>
+                  <motion.div
+                    className="pointer-events-none absolute bottom-full left-1/2 z-10 mb-3 -translate-x-1/2 rounded-[8px] bg-[#212121] px-2 py-1 text-[16px] font-semibold leading-[19px] tracking-[-0.04em] text-[#EDEDED] shadow-sm"
+                    variants={{
+                      rest: { opacity: 0, y: 4 },
+                      hover: { opacity: 1, y: 0 },
+                    }}
+                    transition={{
+                      type: "tween",
+                      duration: 0.2,
+                      ease: [0.25, 0.1, 0.25, 1],
+                    }}
+                  >
+                    Branding
+                  </motion.div>
+                </motion.div>
+
+                {/* Web icon with tooltip */}
+                <motion.div
+                  className="relative flex w-[74px] flex-col items-center"
+                  initial="rest"
+                  whileHover="hover"
+                  variants={{
+                    rest: {},
+                    hover: {},
+                  }}
+                >
+                  <div className="flex h-[74px] w-[74px] items-center justify-center rounded-2xl bg-[#F5F5F5]">
+                    <Image
+                      src="/web.svg"
+                      alt="Web"
+                      width={52}
+                      height={52}
+                      className="h-[52px] w-[52px]"
+                    />
+                  </div>
+                  <motion.div
+                    className="pointer-events-none absolute bottom-full left-1/2 z-10 mb-3 -translate-x-1/2 rounded-[8px] bg-[#212121] px-2 py-1 text-[16px] font-semibold leading-[19px] tracking-[-0.04em] text-[#EDEDED] shadow-sm"
+                    variants={{
+                      rest: { opacity: 0, y: 4 },
+                      hover: { opacity: 1, y: 0 },
+                    }}
+                    transition={{
+                      type: "tween",
+                      duration: 0.2,
+                      ease: [0.25, 0.1, 0.25, 1],
+                    }}
+                  >
+                    <span className="whitespace-nowrap">Web + Development</span>
+                  </motion.div>
+                </motion.div>
+              </div>
+            </div>
+
+            {/* Right: contact list */}
+            <div className="mt-8 flex w-[93px] flex-col items-start gap-3 md:mt-0">
+              <span className="text-[11px] font-semibold leading-[18px] tracking-[0.04em] text-[#BBBBBB]">
+                CONTACT
+              </span>
+              <div className="flex flex-col items-start gap-3">
+                <a
+                  href="https://cal.com/hazarnlnl/intro-with-hazar"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-[12px] font-medium leading-[14px] tracking-[-0.02em] text-[#A8A8A8] transition-colors duration-200 ease-out hover:text-[#282829]"
+                >
+                  Book Call
+                </a>
+                <a
+                  href="https://x.com/hazarnlnl"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-[12px] font-medium leading-[14px] tracking-[-0.02em] text-[#A8A8A8] transition-colors duration-200 ease-out hover:text-[#282829]"
+                >
+                  X/Twitter
+                </a>
+                <a
+                  href="mailto:hi@hzrnl.com"
+                  className="text-[12px] font-medium leading-[14px] tracking-[-0.02em] text-[#A8A8A8] transition-colors duration-200 ease-out hover:text-[#282829]"
+                >
+                  hi@hzrnl.com
+                </a>
+                <a
+                  href="https://t.me/hazarnlnl"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-[12px] font-medium leading-[14px] tracking-[-0.02em] text-[#A8A8A8] transition-colors duration-200 ease-out hover:text-[#282829]"
+                >
+                  Telegram
+                </a>
+              </div>
+            </div>
+          </div>
+        </motion.section>
       </main>
 
       <motion.nav
