@@ -387,7 +387,7 @@ export default function HomeClient({ projects }: HomeClientProps) {
               <BookerEmbed
                 username="hazar-parlar-ppadl7"
                 eventSlug="intro-with-hazar"
-                view="month_view"
+                view="MONTH_VIEW"
                 customClassNames={{
                   bookerContainer: "h-full",
                 }}
