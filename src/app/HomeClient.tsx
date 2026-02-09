@@ -2,7 +2,6 @@
 
 import Image from "next/image";
 import { AnimatePresence, motion } from "framer-motion";
-import { BookerEmbed } from "@calcom/atoms";
 import { useEffect, useRef, useState } from "react";
 
 const TOP_PILL_SCROLL_THRESHOLD = 80;
@@ -19,7 +18,6 @@ type HomeClientProps = { projects: ProjectForDisplay[] };
 
 export default function HomeClient({ projects }: HomeClientProps) {
   const [menuOpen, setMenuOpen] = useState(false);
-  const [showBooker, setShowBooker] = useState(false);
   const [showTopPill, setShowTopPill] = useState(true);
   const [showBottomNav, setShowBottomNav] = useState(false);
   const [scrollPastBottomNavThreshold, setScrollPastBottomNavThreshold] = useState(false);
@@ -159,13 +157,14 @@ export default function HomeClient({ projects }: HomeClientProps) {
                     <span className="text-[11px] font-semibold uppercase tracking-[0.08em] text-[#9B9B9B]">
                       Contact
                     </span>
-                    <button
-                      type="button"
-                      onClick={() => setShowBooker(true)}
-                      className="text-left text-[12px] font-medium leading-[14px] tracking-[-0.02em] text-[#A8A8A8] transition-colors duration-200 ease-out hover:text-[#282829]"
+                    <a
+                      href="https://cal.com/hazarnlnl/intro-with-hazar"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="text-[12px] font-medium leading-[14px] tracking-[-0.02em] text-[#A8A8A8] transition-colors duration-200 ease-out hover:text-[#282829]"
                     >
                       Book a Call
-                    </button>
+                    </a>
                     <a
                       href="https://t.me/hazarnlnl"
                       target="_blank"
@@ -214,9 +213,10 @@ export default function HomeClient({ projects }: HomeClientProps) {
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5, ease: "easeOut", delay: 0.2 }}
         >
-          <button
-            type="button"
-            onClick={() => setShowBooker(true)}
+          <a
+            href="https://cal.com/hazarnlnl/intro-with-hazar"
+            target="_blank"
+            rel="noopener noreferrer"
             className="group flex h-[43px] w-[113.9px] flex-row items-center justify-center gap-[6.9px] rounded-full border border-[#2D2D2D] bg-[#12141B] px-3 py-3 transition-colors duration-150 hover:bg-[#242938]"
           >
             <Image
@@ -229,7 +229,7 @@ export default function HomeClient({ projects }: HomeClientProps) {
             <span className="whitespace-nowrap text-[15.77px] font-semibold leading-[19px] tracking-[-0.04em] text-white">
               Book Call
             </span>
-          </button>
+          </a>
           <a
             href="https://t.me/hazarnlnl"
             target="_blank"
@@ -328,8 +328,10 @@ export default function HomeClient({ projects }: HomeClientProps) {
         }}
         transition={{ type: "tween", duration: 0.3, ease: [0.25, 0.1, 0.25, 1] }}
       >
-        <button
-          type="button"
+        <a
+          href="https://cal.com/hazarnlnl/intro-with-hazar"
+          target="_blank"
+          rel="noopener noreferrer"
           className="group flex h-[43px] w-[113.9px] flex-row items-center justify-center gap-[6.9px] rounded-full border border-[#2D2D2D] bg-[#12141B] px-3 py-3 transition-colors duration-150 hover:bg-[#242938]"
         >
           <Image
@@ -342,7 +344,7 @@ export default function HomeClient({ projects }: HomeClientProps) {
           <span className="whitespace-nowrap text-[15.77px] font-semibold leading-[19px] tracking-[-0.04em] text-white">
             Book Call
           </span>
-        </button>
+        </a>
         <a
           href="https://t.me/hazarnlnl"
           target="_blank"
@@ -361,44 +363,6 @@ export default function HomeClient({ projects }: HomeClientProps) {
           </span>
         </a>
       </motion.nav>
-
-      {showBooker && (
-        <div
-          className="fixed inset-0 z-[60] flex items-center justify-center bg-black/40 px-4"
-          onClick={() => setShowBooker(false)}
-        >
-          <div
-            className="max-h-[90vh] w-full max-w-2xl overflow-hidden rounded-2xl bg-white p-4 shadow-xl"
-            onClick={(e) => e.stopPropagation()}
-          >
-            <div className="mb-3 flex items-center justify-between">
-              <span className="text-sm font-medium text-[#292929]">
-                Book an intro with Hazar
-              </span>
-              <button
-                type="button"
-                onClick={() => setShowBooker(false)}
-                className="rounded-full px-2 py-1 text-xs text-[#7A7A7A] hover:bg-[#F2F2F2]"
-              >
-                Close
-              </button>
-            </div>
-            <div className="h-[520px] overflow-hidden rounded-xl border border-[#EBEBEB]">
-              <BookerEmbed
-                username="hazar-parlar-ppadl7"
-                eventSlug="intro-with-hazar"
-                view="MONTH_VIEW"
-                customClassNames={{
-                  bookerContainer: "h-full",
-                }}
-                onCreateBookingSuccess={() => {
-                  setShowBooker(false);
-                }}
-              />
-            </div>
-          </div>
-        </div>
-      )}
     </div>
   );
 }
