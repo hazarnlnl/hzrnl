@@ -313,7 +313,7 @@ export default function HomeClient({ projects }: HomeClientProps) {
               alt={project.alt ?? "Project"}
               width={1200}
               height={700}
-              className="h-[700px] w-full max-w-[1200px] rounded-[20px] object-cover"
+              className="h-auto w-full max-w-[1200px] rounded-[20px] object-cover md:h-[700px]"
             />
           ))}
         </motion.div>
