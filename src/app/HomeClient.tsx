@@ -199,7 +199,7 @@ export default function HomeClient({ projects }: HomeClientProps) {
                         </div>
                         <motion.div
                           className="pointer-events-none absolute bottom-full left-1/2 z-10 mb-3 -translate-x-1/2 rounded-[8px] bg-[#212121] px-2 py-1 text-[16px] font-semibold leading-[19px] tracking-[-0.04em] text-[#EDEDED] shadow-sm"
-                          initial={false}
+                          initial="rest"
                           variants={{
                             rest: { opacity: 0, y: 4 },
                             hover: { opacity: 1, y: 0 },
@@ -240,7 +240,7 @@ export default function HomeClient({ projects }: HomeClientProps) {
                         </div>
                         <motion.div
                           className="pointer-events-none absolute bottom-full left-1/2 z-10 mb-3 -translate-x-1/2 rounded-[8px] bg-[#212121] px-2 py-1 text-[16px] font-semibold leading-[19px] tracking-[-0.04em] text-[#EDEDED] shadow-sm"
-                          initial={false}
+                          initial="rest"
                           variants={{
                             rest: { opacity: 0, y: 4 },
                             hover: { opacity: 1, y: 0 },
@@ -281,7 +281,7 @@ export default function HomeClient({ projects }: HomeClientProps) {
                         </div>
                         <motion.div
                           className="pointer-events-none absolute bottom-full left-1/2 z-10 mb-3 -translate-x-1/2 rounded-[8px] bg-[#212121] px-2 py-1 text-[16px] font-semibold leading-[19px] tracking-[-0.04em] text-[#EDEDED] shadow-sm"
-                          initial={false}
+                          initial="rest"
                           variants={{
                             rest: { opacity: 0, y: 4 },
                             hover: { opacity: 1, y: 0 },
@@ -517,7 +517,7 @@ export default function HomeClient({ projects }: HomeClientProps) {
                   </div>
                   <motion.div
                     className="pointer-events-none absolute bottom-full left-1/2 z-10 mb-3 -translate-x-1/2 rounded-[8px] bg-[#212121] px-2 py-1 text-[16px] font-semibold leading-[19px] tracking-[-0.04em] text-[#EDEDED] shadow-sm"
-                    initial={false}
+                    initial="rest"
                     variants={{
                       rest: { opacity: 0, y: 4 },
                       hover: { opacity: 1, y: 0 },
@@ -558,7 +558,7 @@ export default function HomeClient({ projects }: HomeClientProps) {
                   </div>
                   <motion.div
                     className="pointer-events-none absolute bottom-full left-1/2 z-10 mb-3 -translate-x-1/2 rounded-[8px] bg-[#212121] px-2 py-1 text-[16px] font-semibold leading-[19px] tracking-[-0.04em] text-[#EDEDED] shadow-sm"
-                    initial={false}
+                    initial="rest"
                     variants={{
                       rest: { opacity: 0, y: 4 },
                       hover: { opacity: 1, y: 0 },
@@ -599,7 +599,7 @@ export default function HomeClient({ projects }: HomeClientProps) {
                   </div>
                   <motion.div
                     className="pointer-events-none absolute bottom-full left-1/2 z-10 mb-3 -translate-x-1/2 rounded-[8px] bg-[#212121] px-2 py-1 text-[16px] font-semibold leading-[19px] tracking-[-0.04em] text-[#EDEDED] shadow-sm"
-                    initial={false}
+                    initial="rest"
                     variants={{
                       rest: { opacity: 0, y: 4 },
                       hover: { opacity: 1, y: 0 },
