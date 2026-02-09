@@ -5,6 +5,7 @@
 
 declare global {
   interface Window {
+    dataLayer?: unknown[];
     gtag?: (
       command: "event" | "config" | "js",
       targetId: string,
@@ -23,8 +24,13 @@ function trackEvent(
   eventName: string,
   params?: Record<string, string | undefined>
 ) {
-  if (typeof window !== "undefined" && window.gtag) {
-    window.gtag("event", eventName, params as Record<string, unknown>);
+  if (typeof window === "undefined") return;
+  const payload = params ? { ...params } : {};
+  if (window.gtag) {
+    window.gtag("event", eventName, payload as Record<string, unknown>);
+  } else {
+    window.dataLayer = window.dataLayer || [];
+    window.dataLayer.push(["event", eventName, payload]);
   }
 }
 
