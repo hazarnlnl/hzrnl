@@ -1,0 +1,15 @@
+[
+  { "src": "img1.png", "alt": "Project 1" },
+  { "src": "img2.png", "alt": "Project 2" },
+  { "src": "img3.png", "alt": "Project 3" },
+  { "src": "img3.5.png", "alt": "Project 3.5" },
+  { "src": "img4.png", "alt": "Project 4" },
+  { "src": "img5.png", "alt": "Project 5" },
+  { "src": "img6.png", "alt": "Project 6" },
+  { "src": "img7.png", "alt": "Project 7" },
+  { "src": "img8.png", "alt": "Project 8" },
+  {
+    "src": "Screenshot 2026-02-09 at 11.50.57 1.png",
+    "alt": "Project 9"
+  }
+]
