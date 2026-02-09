@@ -144,13 +144,13 @@ export default function HomeClient({ projects }: HomeClientProps) {
                       Services
                     </span>
                     <span className="text-[12px] leading-[14px] tracking-[-0.02em] text-[#A8A8A8]">
-                      – Product
+                      Product
                     </span>
                     <span className="text-[12px] leading-[14px] tracking-[-0.02em] text-[#A8A8A8]">
-                      – Branding
+                      Branding
                     </span>
                     <span className="text-[12px] leading-[14px] tracking-[-0.02em] text-[#A8A8A8]">
-                      – Web Development
+                      Web Development
                     </span>
                   </div>
                   <div className="flex flex-col gap-1.5">
