@@ -30,6 +30,8 @@ export default function HomeClient({ projects }: HomeClientProps) {
   const [isTouchLike, setIsTouchLike] = useState(false);
   const [activeTopTooltip, setActiveTopTooltip] = useState<null | "product" | "branding" | "web">(null);
   const [activeBottomTooltip, setActiveBottomTooltip] = useState<null | "product" | "branding" | "web">(null);
+  const [hoveredTopTooltip, setHoveredTopTooltip] = useState<null | "product" | "branding" | "web">(null);
+  const [hoveredBottomTooltip, setHoveredBottomTooltip] = useState<null | "product" | "branding" | "web">(null);
   const menuRef = useRef<HTMLDivElement>(null);
   const bottomNavTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
 
@@ -178,11 +180,12 @@ export default function HomeClient({ projects }: HomeClientProps) {
                       <motion.div
                         className="relative flex w-[74px] flex-col items-center"
                         initial="rest"
-                        whileHover="hover"
                         variants={{
                           rest: {},
                           hover: {},
                         }}
+                        onMouseEnter={() => setHoveredTopTooltip("product")}
+                        onMouseLeave={() => setHoveredTopTooltip(null)}
                         onClick={() => {
                           if (!isTouchLike) return;
                           setActiveTopTooltip((curr) => (curr === "product" ? null : "product"));
@@ -204,7 +207,15 @@ export default function HomeClient({ projects }: HomeClientProps) {
                             rest: { opacity: 0, y: 4 },
                             hover: { opacity: 1, y: 0 },
                           }}
-                          animate={isTouchLike ? (activeTopTooltip === "product" ? "hover" : "rest") : undefined}
+                          animate={
+                            isTouchLike
+                              ? activeTopTooltip === "product"
+                                ? "hover"
+                                : "rest"
+                              : hoveredTopTooltip === "product"
+                                ? "hover"
+                                : "rest"
+                          }
                           transition={{
                             type: "tween",
                             duration: 0.2,
@@ -219,11 +230,12 @@ export default function HomeClient({ projects }: HomeClientProps) {
                       <motion.div
                         className="relative flex w-[74px] flex-col items-center"
                         initial="rest"
-                        whileHover="hover"
                         variants={{
                           rest: {},
                           hover: {},
                         }}
+                        onMouseEnter={() => setHoveredTopTooltip("branding")}
+                        onMouseLeave={() => setHoveredTopTooltip(null)}
                         onClick={() => {
                           if (!isTouchLike) return;
                           setActiveTopTooltip((curr) => (curr === "branding" ? null : "branding"));
@@ -245,7 +257,15 @@ export default function HomeClient({ projects }: HomeClientProps) {
                             rest: { opacity: 0, y: 4 },
                             hover: { opacity: 1, y: 0 },
                           }}
-                          animate={isTouchLike ? (activeTopTooltip === "branding" ? "hover" : "rest") : undefined}
+                          animate={
+                            isTouchLike
+                              ? activeTopTooltip === "branding"
+                                ? "hover"
+                                : "rest"
+                              : hoveredTopTooltip === "branding"
+                                ? "hover"
+                                : "rest"
+                          }
                           transition={{
                             type: "tween",
                             duration: 0.2,
@@ -260,11 +280,12 @@ export default function HomeClient({ projects }: HomeClientProps) {
                       <motion.div
                         className="relative flex w-[74px] flex-col items-center"
                         initial="rest"
-                        whileHover="hover"
                         variants={{
                           rest: {},
                           hover: {},
                         }}
+                        onMouseEnter={() => setHoveredTopTooltip("web")}
+                        onMouseLeave={() => setHoveredTopTooltip(null)}
                         onClick={() => {
                           if (!isTouchLike) return;
                           setActiveTopTooltip((curr) => (curr === "web" ? null : "web"));
@@ -286,7 +307,15 @@ export default function HomeClient({ projects }: HomeClientProps) {
                             rest: { opacity: 0, y: 4 },
                             hover: { opacity: 1, y: 0 },
                           }}
-                          animate={isTouchLike ? (activeTopTooltip === "web" ? "hover" : "rest") : undefined}
+                          animate={
+                            isTouchLike
+                              ? activeTopTooltip === "web"
+                                ? "hover"
+                                : "rest"
+                              : hoveredTopTooltip === "web"
+                                ? "hover"
+                                : "rest"
+                          }
                           transition={{
                             type: "tween",
                             duration: 0.2,
@@ -496,11 +525,12 @@ export default function HomeClient({ projects }: HomeClientProps) {
                 <motion.div
                   className="relative flex w-[74px] flex-col items-center"
                   initial="rest"
-                  whileHover="hover"
                   variants={{
                     rest: {},
                     hover: {},
                   }}
+                  onMouseEnter={() => setHoveredBottomTooltip("product")}
+                  onMouseLeave={() => setHoveredBottomTooltip(null)}
                   onClick={() => {
                     if (!isTouchLike) return;
                     setActiveBottomTooltip((curr) => (curr === "product" ? null : "product"));
@@ -522,7 +552,15 @@ export default function HomeClient({ projects }: HomeClientProps) {
                       rest: { opacity: 0, y: 4 },
                       hover: { opacity: 1, y: 0 },
                     }}
-                    animate={isTouchLike ? (activeBottomTooltip === "product" ? "hover" : "rest") : undefined}
+                    animate={
+                      isTouchLike
+                        ? activeBottomTooltip === "product"
+                          ? "hover"
+                          : "rest"
+                        : hoveredBottomTooltip === "product"
+                          ? "hover"
+                          : "rest"
+                    }
                     transition={{
                       type: "tween",
                       duration: 0.2,
@@ -537,11 +575,12 @@ export default function HomeClient({ projects }: HomeClientProps) {
                 <motion.div
                   className="relative flex w-[74px] flex-col items-center"
                   initial="rest"
-                  whileHover="hover"
                   variants={{
                     rest: {},
                     hover: {},
                   }}
+                  onMouseEnter={() => setHoveredBottomTooltip("branding")}
+                  onMouseLeave={() => setHoveredBottomTooltip(null)}
                   onClick={() => {
                     if (!isTouchLike) return;
                     setActiveBottomTooltip((curr) => (curr === "branding" ? null : "branding"));
@@ -563,7 +602,15 @@ export default function HomeClient({ projects }: HomeClientProps) {
                       rest: { opacity: 0, y: 4 },
                       hover: { opacity: 1, y: 0 },
                     }}
-                    animate={isTouchLike ? (activeBottomTooltip === "branding" ? "hover" : "rest") : undefined}
+                    animate={
+                      isTouchLike
+                        ? activeBottomTooltip === "branding"
+                          ? "hover"
+                          : "rest"
+                        : hoveredBottomTooltip === "branding"
+                          ? "hover"
+                          : "rest"
+                    }
                     transition={{
                       type: "tween",
                       duration: 0.2,
@@ -578,11 +625,12 @@ export default function HomeClient({ projects }: HomeClientProps) {
                 <motion.div
                   className="relative flex w-[74px] flex-col items-center"
                   initial="rest"
-                  whileHover="hover"
                   variants={{
                     rest: {},
                     hover: {},
                   }}
+                  onMouseEnter={() => setHoveredBottomTooltip("web")}
+                  onMouseLeave={() => setHoveredBottomTooltip(null)}
                   onClick={() => {
                     if (!isTouchLike) return;
                     setActiveBottomTooltip((curr) => (curr === "web" ? null : "web"));
@@ -604,7 +652,15 @@ export default function HomeClient({ projects }: HomeClientProps) {
                       rest: { opacity: 0, y: 4 },
                       hover: { opacity: 1, y: 0 },
                     }}
-                    animate={isTouchLike ? (activeBottomTooltip === "web" ? "hover" : "rest") : undefined}
+                    animate={
+                      isTouchLike
+                        ? activeBottomTooltip === "web"
+                          ? "hover"
+                          : "rest"
+                        : hoveredBottomTooltip === "web"
+                          ? "hover"
+                          : "rest"
+                    }
                     transition={{
                       type: "tween",
                       duration: 0.2,
