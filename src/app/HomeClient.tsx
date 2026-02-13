@@ -512,7 +512,7 @@ export default function HomeClient({ projects }: HomeClientProps) {
             {/* Left: heading + services */}
             <div className="flex w-full max-w-[336px] flex-col items-start gap-24 md:gap-20">
               <div className="flex flex-col items-start gap-4">
-                <h2 className="whitespace-nowrap text-[24px] font-medium leading-[1.2] tracking-[-0.04em] text-black">
+                <h2 className="text-[24px] font-medium leading-[1.2] tracking-[-0.04em] text-black">
                   Got a sec to talk about your idea?
                 </h2>
                 <p className="text-[16px] font-medium leading-[1.2] tracking-[-0.04em] text-[#C4C4C4]">
