@@ -168,7 +168,7 @@ export default function HomeClient({ projects }: HomeClientProps) {
                   <div className="flex w-full max-w-[336px] flex-col items-start gap-24 md:gap-20">
                     <div className="flex flex-col items-start gap-4">
                       <h2 className="text-[24px] font-medium leading-[1.2] tracking-[-0.04em] text-black">
-                        Have a project in mind?
+                        Got a deadline and an idea?
                       </h2>
                       <p className="text-[16px] font-medium leading-[1.2] tracking-[-0.04em] text-[#C4C4C4]">
                         Let&apos;s build something special together.
@@ -384,7 +384,7 @@ export default function HomeClient({ projects }: HomeClientProps) {
           transition={{ duration: 0.6, ease: "easeOut", delay: 0.1 }}
         >
           <p className="text-[22px] font-medium leading-[28px] tracking-[-0.06em] text-[#282829]">
-            Design partner for founders who move fast. Sharp brand, product, and web design that helps you launch and scale.
+            Bringing your vision to life through design and development, with craft people can feel
           </p>
         </motion.div>
 
@@ -513,7 +513,7 @@ export default function HomeClient({ projects }: HomeClientProps) {
             <div className="flex w-full max-w-[336px] flex-col items-start gap-24 md:gap-20">
               <div className="flex flex-col items-start gap-4">
                 <h2 className="text-[24px] font-medium leading-[1.2] tracking-[-0.04em] text-black">
-                  Have a project in mind?
+                  Got a deadline and a vision? That&apos;s all I need.
                 </h2>
                 <p className="text-[16px] font-medium leading-[1.2] tracking-[-0.04em] text-[#C4C4C4]">
                   Let&apos;s build something special together.
