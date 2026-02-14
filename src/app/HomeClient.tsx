@@ -41,8 +41,30 @@ export default function HomeClient({ projects }: HomeClientProps) {
   const [activeBottomTooltip, setActiveBottomTooltip] = useState<null | "product" | "branding" | "web">(null);
   const [hoveredTopTooltip, setHoveredTopTooltip] = useState<null | "product" | "branding" | "web">(null);
   const [hoveredBottomTooltip, setHoveredBottomTooltip] = useState<null | "product" | "branding" | "web">(null);
+  const [iconFollow, setIconFollow] = useState<{
+    id: "book-hero" | "chat-hero" | "book-nav" | "chat-nav" | null;
+    x: number;
+    y: number;
+  }>({ id: null, x: 0, y: 0 });
   const menuRef = useRef<HTMLDivElement>(null);
   const bottomNavTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
+
+  const CTA_ICON_FOLLOW_MAX_PX = 6;
+  const handleCtaButtonMouseMove = (
+    e: React.MouseEvent<HTMLAnchorElement>,
+    id: "book-hero" | "chat-hero" | "book-nav" | "chat-nav"
+  ) => {
+    const rect = e.currentTarget.getBoundingClientRect();
+    const x = (e.clientX - rect.left) / rect.width;
+    const y = (e.clientY - rect.top) / rect.height;
+    setIconFollow({
+      id,
+      x: (x - 0.5) * 2 * CTA_ICON_FOLLOW_MAX_PX,
+      y: (y - 0.5) * 2 * CTA_ICON_FOLLOW_MAX_PX,
+    });
+  };
+  const handleCtaButtonMouseLeave = () =>
+    setIconFollow((prev) => ({ ...prev, id: null, x: 0, y: 0 }));
 
   useEffect(() => {
     const mq = window.matchMedia("(hover: none), (pointer: coarse)");
@@ -140,7 +162,7 @@ export default function HomeClient({ projects }: HomeClientProps) {
                 setMenuOpen((open) => !open);
               }
             }}
-            className="flex h-12 w-[72px] cursor-pointer flex-row items-center justify-center gap-3 rounded-2xl border border-[#EBEBEB] bg-white"
+            className="flex h-12 w-[72px] cursor-pointer flex-row items-center justify-center gap-3 rounded-2xl border border-[#EBEBEB] bg-white transition-colors duration-150 hover:border-[#E0E0E0] hover:bg-[#F8F8F8]"
             aria-expanded={menuOpen}
           >
             <Image
@@ -174,7 +196,7 @@ export default function HomeClient({ projects }: HomeClientProps) {
               >
                 <div className="flex w-full flex-col items-start gap-[10px] md:flex-row md:items-end md:justify-between">
                   {/* Left: heading + services (same as bottom) */}
-                  <div className="flex w-full max-w-[336px] flex-col items-start gap-24 md:gap-20">
+                  <div className="flex w-full max-w-[440px] flex-col items-start gap-24 md:gap-20">
                     <div className="flex flex-col items-start gap-4">
                       <h2 className="text-[24px] font-medium leading-[1.2] tracking-[-0.04em] text-black">
                         Got a sec to talk about your idea?
@@ -408,6 +430,8 @@ export default function HomeClient({ projects }: HomeClientProps) {
             target="_blank"
             rel="noopener noreferrer"
             onClick={() => trackBookCallClick("header")}
+            onMouseMove={(e) => handleCtaButtonMouseMove(e, "book-hero")}
+            onMouseLeave={handleCtaButtonMouseLeave}
             className="group flex h-[43px] w-[113.9px] flex-row items-center justify-center gap-[6.9px] rounded-full border border-[#2D2D2D] bg-[#12141B] px-3 py-3 transition-colors duration-150 hover:bg-[#242938]"
           >
             <Image
@@ -415,7 +439,13 @@ export default function HomeClient({ projects }: HomeClientProps) {
               alt="Book call"
               width={16}
               height={16}
-              className="transition-transform duration-150 group-hover:-translate-y-[2px]"
+              className="transition-transform duration-200 ease-out"
+              style={{
+                transform:
+                  iconFollow.id === "book-hero"
+                    ? `translate(${iconFollow.x}px, ${iconFollow.y}px)`
+                    : "translate(0px, 0px)",
+              }}
             />
             <span className="whitespace-nowrap text-[15.77px] font-semibold leading-[19px] tracking-[-0.04em] text-white">
               Book Call
@@ -426,6 +456,8 @@ export default function HomeClient({ projects }: HomeClientProps) {
             target="_blank"
             rel="noopener noreferrer"
             onClick={() => trackTelegramClick("header")}
+            onMouseMove={(e) => handleCtaButtonMouseMove(e, "chat-hero")}
+            onMouseLeave={handleCtaButtonMouseLeave}
             className="group flex h-[43px] w-[81.9px] flex-row items-center justify-center gap-[6.9px] rounded-full border border-[#DADADA] bg-white px-3 py-3 transition-colors duration-150 hover:bg-[#F5F5F5]"
           >
             <Image
@@ -433,7 +465,13 @@ export default function HomeClient({ projects }: HomeClientProps) {
               alt="Chat"
               width={16}
               height={16}
-              className="transition-transform duration-150 group-hover:-translate-y-[2px]"
+              className="transition-transform duration-200 ease-out"
+              style={{
+                transform:
+                  iconFollow.id === "chat-hero"
+                    ? `translate(${iconFollow.x}px, ${iconFollow.y}px)`
+                    : "translate(0px, 0px)",
+              }}
             />
             <span className="whitespace-nowrap text-[15.77px] font-semibold leading-[19px] tracking-[-0.04em] text-[#2F2F2F]">
               Chat
@@ -517,7 +555,7 @@ export default function HomeClient({ projects }: HomeClientProps) {
         >
           <div className="flex w-auto max-w-[90vw] md:w-full md:max-w-[653px] flex-col items-start gap-[10px] rounded-[36px] border border-[#EBEBEB] bg-white p-8 md:flex-row md:items-end md:justify-between">
             {/* Left: heading + services */}
-            <div className="flex w-full max-w-[336px] flex-col items-start gap-24 md:gap-20">
+            <div className="flex w-full max-w-[440px] flex-col items-start gap-24 md:gap-20">
               <div className="flex flex-col items-start gap-4">
                 <h2 className="text-[24px] font-medium leading-[1.2] tracking-[-0.04em] text-black">
                   Got a sec to talk about your idea?
@@ -739,6 +777,8 @@ export default function HomeClient({ projects }: HomeClientProps) {
           target="_blank"
           rel="noopener noreferrer"
           onClick={() => trackBookCallClick("bottom_nav")}
+          onMouseMove={(e) => handleCtaButtonMouseMove(e, "book-nav")}
+          onMouseLeave={handleCtaButtonMouseLeave}
           className="group flex h-[43px] w-[113.9px] flex-row items-center justify-center gap-[6.9px] rounded-full border border-[#2D2D2D] bg-[#12141B] px-3 py-3 transition-colors duration-150 hover:bg-[#242938]"
         >
           <Image
@@ -746,7 +786,13 @@ export default function HomeClient({ projects }: HomeClientProps) {
             alt="Book call"
             width={16}
             height={16}
-            className="transition-transform duration-150 group-hover:-translate-y-[2px]"
+            className="transition-transform duration-200 ease-out"
+            style={{
+              transform:
+                iconFollow.id === "book-nav"
+                  ? `translate(${iconFollow.x}px, ${iconFollow.y}px)`
+                  : "translate(0px, 0px)",
+            }}
           />
           <span className="whitespace-nowrap text-[15.77px] font-semibold leading-[19px] tracking-[-0.04em] text-white">
             Book Call
@@ -757,6 +803,8 @@ export default function HomeClient({ projects }: HomeClientProps) {
           target="_blank"
           rel="noopener noreferrer"
           onClick={() => trackTelegramClick("bottom_nav")}
+          onMouseMove={(e) => handleCtaButtonMouseMove(e, "chat-nav")}
+          onMouseLeave={handleCtaButtonMouseLeave}
           className="group flex h-[43px] w-[81.9px] flex-row items-center justify-center gap-[6.9px] rounded-full border border-[#DADADA] bg-white px-3 py-3 transition-colors duration-150 hover:bg-[#F5F5F5]"
         >
           <Image
@@ -764,7 +812,13 @@ export default function HomeClient({ projects }: HomeClientProps) {
             alt="Chat"
             width={16}
             height={16}
-            className="transition-transform duration-150 group-hover:-translate-y-[2px]"
+            className="transition-transform duration-200 ease-out"
+            style={{
+              transform:
+                iconFollow.id === "chat-nav"
+                  ? `translate(${iconFollow.x}px, ${iconFollow.y}px)`
+                  : "translate(0px, 0px)",
+            }}
           />
           <span className="whitespace-nowrap text-[15.77px] font-semibold leading-[19px] tracking-[-0.04em] text-[#2F2F2F]">
             Chat
