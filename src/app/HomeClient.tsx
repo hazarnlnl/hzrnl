@@ -14,6 +14,15 @@ const TOP_PILL_SCROLL_THRESHOLD = 80;
 const BOTTOM_NAV_HIDE_THRESHOLD = 150;
 const BOTTOM_NAV_APPEAR_DELAY_MS = 400;
 
+const CLIENT_LOGOS = [
+  "/Frame-18.svg",
+  "/Frame-174.svg",
+  "/Frame-175.svg",
+  "/Frame-176.svg",
+  "/Frame-177.svg",
+  "/Frame-178.svg",
+];
+
 export type ProjectForDisplay = {
   id: string;
   imageUrl: string;
@@ -433,52 +442,50 @@ export default function HomeClient({ projects }: HomeClientProps) {
         </motion.div>
 
         <motion.div
-          className="grid grid-cols-3 gap-x-10 gap-y-6 rounded-md px-2 py-2"
+          className="relative mx-auto w-full max-w-[360px] overflow-hidden rounded-md py-2 md:max-w-[420px]"
           initial={{ opacity: 0, y: -16 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6, ease: "easeOut", delay: 0.3 }}
         >
-          <Image
-            src="/Frame-18.svg"
-            alt="Client logo 1"
-            width={56}
-            height={16}
-            className="h-auto w-14 justify-self-center"
+          <motion.div
+            className="flex w-max gap-x-8 md:gap-x-10"
+            animate={{ x: ["0%", "-50%"] }}
+            transition={{
+              repeat: Infinity,
+              repeatType: "loop",
+              duration: 22,
+              ease: "linear",
+            }}
+          >
+            {CLIENT_LOGOS.map((src, i) => (
+              <Image
+                key={`logo-a-${i}`}
+                src={src}
+                alt={`Client logo ${i + 1}`}
+                width={64}
+                height={18}
+                className="h-4 w-16 shrink-0 object-contain opacity-70 md:h-5"
+              />
+            ))}
+            {CLIENT_LOGOS.map((src, i) => (
+              <Image
+                key={`logo-b-${i}`}
+                src={src}
+                alt={`Client logo ${i + 1}`}
+                width={64}
+                height={18}
+                className="h-4 w-16 shrink-0 object-contain opacity-70 md:h-5"
+              />
+            ))}
+          </motion.div>
+          {/* Side gradient overlays: opaque at edges, transparent in center */}
+          <div
+            className="pointer-events-none absolute inset-y-0 left-0 w-16 bg-gradient-to-r from-white to-transparent md:w-24"
+            aria-hidden
           />
-          <Image
-            src="/Frame-174.svg"
-            alt="Client logo 2"
-            width={56}
-            height={16}
-            className="h-auto w-14 justify-self-center"
-          />
-          <Image
-            src="/Frame-175.svg"
-            alt="Client logo 3"
-            width={56}
-            height={16}
-            className="h-auto w-14 justify-self-center"
-          />
-          <Image
-            src="/Frame-176.svg"
-            alt="Client logo 4"
-            width={56}
-            height={16}
-            className="h-auto w-14 justify-self-center"
-          />
-          <Image
-            src="/Frame-177.svg"
-            alt="Client logo 5"
-            width={56}
-            height={16}
-            className="h-auto w-14 justify-self-center"
-          />
-          <Image
-            src="/Frame-178.svg"
-            alt="Client logo 6"
-            width={56}
-            height={16}
-            className="h-auto w-14 justify-self-center"
+          <div
+            className="pointer-events-none absolute inset-y-0 right-0 w-16 bg-gradient-to-l from-white to-transparent md:w-24"
+            aria-hidden
           />
         </motion.div>
 
