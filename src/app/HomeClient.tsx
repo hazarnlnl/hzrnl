@@ -49,7 +49,7 @@ export default function HomeClient({ projects }: HomeClientProps) {
   const menuRef = useRef<HTMLDivElement>(null);
   const bottomNavTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
 
-  const CTA_ICON_FOLLOW_MAX_PX = 6;
+  const CTA_ICON_FOLLOW_MAX_PX = 3;
   const handleCtaButtonMouseMove = (
     e: React.MouseEvent<HTMLAnchorElement>,
     id: "book-hero" | "chat-hero" | "book-nav" | "chat-nav"
