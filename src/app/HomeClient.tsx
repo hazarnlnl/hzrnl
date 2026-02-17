@@ -166,13 +166,6 @@ export default function HomeClient({ projects }: HomeClientProps) {
             aria-expanded={menuOpen}
           >
             <Image
-              src="/favicon.png"
-              alt=""
-              width={24}
-              height={24}
-              className="h-6 w-6 flex-shrink-0 rounded-[8px] object-cover"
-            />
-            <Image
               src="/menuicon.svg"
               alt="Menu"
               width={16}
