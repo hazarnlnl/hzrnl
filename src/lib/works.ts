@@ -22,12 +22,11 @@ export function getWorks(): WorkItem[] {
   // Basic alphabetical order by filename
   files.sort((a, b) => a.localeCompare(b, undefined, { numeric: true, sensitivity: "base" }));
 
-  // Ensure the newest featured image appears in second position
-  const FEATURED_SECOND = "img1.5.png";
-  const featuredIndex = files.indexOf(FEATURED_SECOND);
-  if (featuredIndex > -1 && featuredIndex !== 1) {
-    files.splice(featuredIndex, 1);
-    files.splice(1, 0, FEATURED_SECOND);
+  // Swap 3rd and 4th: img12.5 before img12
+  const i3 = files.indexOf("img12.5.png");
+  const i4 = files.indexOf("img12.png");
+  if (i3 > -1 && i4 > -1 && i3 > i4) {
+    [files[i3], files[i4]] = [files[i4], files[i3]];
   }
 
   return files.map((file) => {

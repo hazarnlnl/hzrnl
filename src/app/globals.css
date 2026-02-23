@@ -12,18 +12,15 @@
   --font-mono: var(--font-inter);
 }
 
-body {
-  background: #ffffff;
-  color: #171717;
-}
-
-/* Hide scrollbars but keep scrolling */
 html,
 body {
-  -ms-overflow-style: none; /* IE and Edge */
-  scrollbar-width: none; /* Firefox */
+  background: #FCFCFC;
+  color: #171717;
+  overscroll-behavior: none;
 }
 
-body::-webkit-scrollbar {
-  display: none; /* Chrome, Safari, Opera */
+html {
+  scroll-behavior: auto;
+  -webkit-overflow-scrolling: touch;
 }
+
