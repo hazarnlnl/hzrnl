@@ -177,12 +177,12 @@ export default function HomeClient({ projects }: HomeClientProps) {
             {menuOpen && (
               <motion.div
                 key="menu-popup"
-                initial={{ opacity: 0, y: -16, filter: "blur(10px)" }}
-                animate={{ opacity: 1, y: 0, filter: "blur(0px)" }}
-                exit={{ opacity: 0, y: -12, filter: "blur(8px)" }}
+                initial={{ opacity: 0, y: -16, scale: 0.96, filter: "blur(6px)" }}
+                animate={{ opacity: 1, y: 0, scale: 1, filter: "blur(0px)" }}
+                exit={{ opacity: 0, y: -12, scale: 0.98, filter: "blur(4px)" }}
                 transition={{
-                  duration: 0.26,
-                  ease: [0.25, 0.1, 0.25, 1],
+                  duration: 0.2,
+                  ease: "easeOut",
                 }}
                 className="absolute left-1/2 top-full z-10 mt-2 w-auto max-w-[90vw] md:w-[653px] -translate-x-1/2 rounded-[36px] border border-[#EBEBEB] bg-white p-8"
                 onClick={(e) => e.stopPropagation()}
@@ -408,7 +408,7 @@ export default function HomeClient({ projects }: HomeClientProps) {
           transition={{ duration: 0.6, ease: "easeOut", delay: 0.1 }}
         >
           <p className="text-[22px] font-medium leading-[28px] tracking-[-0.06em] text-[#282829]">
-            Bringing your vision to life through design and development, with craft people can feel
+            Design that turns your idea into something you&apos;re proud to ship.
           </p>
         </motion.div>
 
@@ -425,7 +425,7 @@ export default function HomeClient({ projects }: HomeClientProps) {
             onClick={() => trackBookCallClick("header")}
             onMouseMove={(e) => handleCtaButtonMouseMove(e, "book-hero")}
             onMouseLeave={handleCtaButtonMouseLeave}
-            className="group flex h-[43px] w-[113.9px] flex-row items-center justify-center gap-[6.9px] rounded-full border border-[#2D2D2D] bg-[#12141B] px-3 py-3 transition-colors duration-150 hover:bg-[#242938]"
+            className="group flex w-[113.9px] flex-row items-center justify-center gap-[6.9px] rounded-full border border-[#2D2D2D] bg-[#12141B] px-3 py-2 transition-colors duration-150 hover:bg-[#242938]"
           >
             <Image
               src="/bookcallicon.svg"
@@ -451,7 +451,7 @@ export default function HomeClient({ projects }: HomeClientProps) {
             onClick={() => trackTelegramClick("header")}
             onMouseMove={(e) => handleCtaButtonMouseMove(e, "chat-hero")}
             onMouseLeave={handleCtaButtonMouseLeave}
-            className="group flex h-[43px] w-[81.9px] flex-row items-center justify-center gap-[6.9px] rounded-full border border-[#DADADA] bg-white px-3 py-3 transition-colors duration-150 hover:bg-[#F5F5F5]"
+            className="group flex w-[81.9px] flex-row items-center justify-center gap-[6.9px] rounded-full border border-[#DADADA] bg-white px-3 py-2 transition-colors duration-150 hover:bg-[#F5F5F5]"
           >
             <Image
               src="/chaticon.svg"
@@ -532,9 +532,9 @@ export default function HomeClient({ projects }: HomeClientProps) {
               key={project.id}
               src={project.imageUrl}
               alt={project.alt ?? "Project"}
-              width={1200}
-              height={700}
-              className="h-auto w-full max-w-[1200px] rounded-[20px] object-cover md:h-[700px]"
+              width={1000}
+              height={600}
+              className="h-auto w-full max-w-[960px] rounded-[20px] border border-[#EBEBEB] object-cover md:h-[600px]"
             />
           ))}
         </motion.div>
@@ -772,7 +772,7 @@ export default function HomeClient({ projects }: HomeClientProps) {
           onClick={() => trackBookCallClick("bottom_nav")}
           onMouseMove={(e) => handleCtaButtonMouseMove(e, "book-nav")}
           onMouseLeave={handleCtaButtonMouseLeave}
-          className="group flex h-[43px] w-[113.9px] flex-row items-center justify-center gap-[6.9px] rounded-full border border-[#2D2D2D] bg-[#12141B] px-3 py-3 transition-colors duration-150 hover:bg-[#242938]"
+          className="group flex w-[113.9px] flex-row items-center justify-center gap-[6.9px] rounded-full border border-[#2D2D2D] bg-[#12141B] px-3 py-2 transition-colors duration-150 hover:bg-[#242938]"
         >
           <Image
             src="/bookcallicon.svg"
@@ -798,7 +798,7 @@ export default function HomeClient({ projects }: HomeClientProps) {
           onClick={() => trackTelegramClick("bottom_nav")}
           onMouseMove={(e) => handleCtaButtonMouseMove(e, "chat-nav")}
           onMouseLeave={handleCtaButtonMouseLeave}
-          className="group flex h-[43px] w-[81.9px] flex-row items-center justify-center gap-[6.9px] rounded-full border border-[#DADADA] bg-white px-3 py-3 transition-colors duration-150 hover:bg-[#F5F5F5]"
+          className="group flex w-[81.9px] flex-row items-center justify-center gap-[6.9px] rounded-full border border-[#DADADA] bg-white px-3 py-2 transition-colors duration-150 hover:bg-[#F5F5F5]"
         >
           <Image
             src="/chaticon.svg"

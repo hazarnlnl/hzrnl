@@ -22,6 +22,14 @@ export function getWorks(): WorkItem[] {
   // Basic alphabetical order by filename
   files.sort((a, b) => a.localeCompare(b, undefined, { numeric: true, sensitivity: "base" }));
 
+  // Ensure the newest featured image appears in second position
+  const FEATURED_SECOND = "img1.5.png";
+  const featuredIndex = files.indexOf(FEATURED_SECOND);
+  if (featuredIndex > -1 && featuredIndex !== 1) {
+    files.splice(featuredIndex, 1);
+    files.splice(1, 0, FEATURED_SECOND);
+  }
+
   return files.map((file) => {
     const base = path.parse(file).name;
     const alt =
