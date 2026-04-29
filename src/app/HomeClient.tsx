@@ -27,7 +27,7 @@ export default function HomeClient({ projects }: HomeClientProps) {
   const [showCopied, setShowCopied] = useState(false);
 
   const handleCopyEmail = () => {
-    navigator.clipboard.writeText("hi@hzrnl.com");
+    navigator.clipboard.writeText("hazarnl.garden@gmail.com");
     setShowCopied(true);
     setTimeout(() => setShowCopied(false), 1500);
   };
