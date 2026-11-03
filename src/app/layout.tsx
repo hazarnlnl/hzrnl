@@ -12,11 +12,11 @@ const inter = Inter({
 });
 
 export const metadata: Metadata = {
-  title: "Hazar – Design Partner for Startups",
+  title: "Hazar nl",
   description:
     "Brand, product, and web design partnership for startup founders who don’t wait around.",
   icons: {
-    icon: "/favicon.png",
+    icon: "/favicon.svg",
   },
 };
 
