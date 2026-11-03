@@ -3,6 +3,7 @@ import { Inter } from "next/font/google";
 import Script from "next/script";
 import { Analytics } from "@vercel/analytics/next";
 import { SpeedInsights } from "@vercel/speed-insights/next";
+import FaviconCycler from "./FaviconCycler";
 import "./globals.css";
 
 const inter = Inter({
@@ -16,7 +17,7 @@ export const metadata: Metadata = {
   description:
     "Brand, product, and web design partnership for startup founders who don’t wait around.",
   icons: {
-    icon: "/favicon.svg",
+    icon: { url: "/favicon.gif", type: "image/gif" },
   },
 };
 
@@ -42,6 +43,7 @@ export default function RootLayout({
           `}
         </Script>
         {children}
+        <FaviconCycler />
         <Analytics />
         <SpeedInsights />
       </body>
