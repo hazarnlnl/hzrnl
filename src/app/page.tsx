@@ -105,7 +105,7 @@ export default function Home() {
           animate={{ opacity: 1, y: 0, transition: { duration: 0.5, delay: 0.3, ease: EASE_OUT } }}
           className="flex items-center gap-[17px] text-[16px] font-medium leading-[1.1] tracking-[-0.04em] text-[#393939]"
         >
-          <Link href="/index" className="transition-opacity duration-150 hover:opacity-50">
+          <Link href="/work" className="transition-opacity duration-150 hover:opacity-50">
             Index
           </Link>
           <a

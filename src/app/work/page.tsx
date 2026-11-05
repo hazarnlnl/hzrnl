@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import images from "@/data/index.json";
+import images from "@/data/work.json";
 import IndexGrid, { type IndexItem } from "./IndexGrid";
 
 export const metadata: Metadata = {
@@ -7,6 +7,6 @@ export const metadata: Metadata = {
 };
 
 export default function IndexPage() {
-  const items: IndexItem[] = images.map((item) => ({ ...item, src: `/index/${item.src}` }));
+  const items: IndexItem[] = images.map((item) => ({ ...item, src: `/work/${item.src}` }));
   return <IndexGrid items={items} />;
 }
